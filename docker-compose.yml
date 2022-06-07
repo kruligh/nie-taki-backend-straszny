@@ -1,0 +1,25 @@
+version: "3.4"
+
+services:
+  postgres:
+    container_name: ntbs-postgres
+    image: postgres:11.6
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+      DATABASE: ntbs_dev_local
+      DATABASE_TESTS: ntbs_dev_tests
+    volumes:
+      - ./scripts/db/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+    # To log all queries:
+    command: ["postgres", "-c", "log_statement=all"]
+
+networks:
+  postgres:
+    driver: bridge

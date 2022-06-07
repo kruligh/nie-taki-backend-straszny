@@ -1,0 +1,42 @@
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: pragmaticcoders/node-test-runner:latest
+  variables:
+    # Postgres settings
+    POSTGRES_PASSWORD: pass
+    POSTGRES_USER: user
+    POSTGRES_DB: ntbs_dev_local
+
+    # App settings
+    PGPASSWORD: pass
+    PGUSER: user
+    PGPORT: 5432
+  services:
+    - name: postgres:11.6
+      alias: testdb
+
+  script:
+    - export PGHOST=testdb
+    - mv /node_modules ./node_modules
+    - npm cache verify
+    - npm install
+    - npm run test:integration
+
+build:
+  stage: build
+  image: pragmaticcoders/node-test-runner:latest
+  script:
+    - mv /node_modules ./node_modules
+    - npm cache verify
+    - npm ci
+    - source ./scripts/build.sh
+  artifacts:
+    paths:
+      - lambda/*
+  only:
+    - merge_requests
+    - master
