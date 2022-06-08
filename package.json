@@ -6,14 +6,12 @@
   "scripts": {
     "node": "TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=${npm_package_config_node_options} node",
     "mocha": "TZ=UTC NODE_OPTIONS=${npm_package_config_node_options} TS_NODE_TRANSPILE_ONLY=true mocha --timeout 180000 --colors --exit",
-    "start": "nodemon --ext ts --watch src --watch types --exec 'npm run start:local'",
+    "start": "nodemon --ext ts --watch src --exec 'npm run start:local'",
     "start:local": "npm run node -- src/server.ts",
     "start:services": "docker-compose rm --force && docker-compose up --build",
     "test": "npm run test:types && npm run test:logic",
     "test:types": "tsc --noEmit --project .",
-    "test:logic": "PGDATABASE=ntbs_dev_tests npm run mocha -- 'src/**/*.test.ts'",
-    "run:migrate": "npm run node -- src/scripts/migrate.ts",
-    "run:migrate-force": "npm run node -- src/scripts/migrate.ts --force --seed"
+    "test:logic": "PGDATABASE=ntbs_dev_tests npm run mocha -- 'src/**/*.test.ts'"
   },
   "config": {
     "node_options": "--require ts-node/register --require tsconfig-paths/register --require reflect-metadata --require dotenv/config",

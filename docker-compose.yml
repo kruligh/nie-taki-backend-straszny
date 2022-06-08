@@ -5,8 +5,8 @@ services:
     container_name: ntbs-postgres
     image: postgres:11.6
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
       PGDATA: /data/postgres
       DATABASE: ntbs_dev_local
       DATABASE_TESTS: ntbs_dev_tests

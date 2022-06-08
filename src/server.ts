@@ -3,7 +3,7 @@ import { buildRouter } from "ntbs/router";
 import { buildAppServices } from "ntbs/app-services";
 
 async function main() {
-  const httpPort = 8082;
+  const httpPort = 8082; // todo move to env
   const appServices = await buildAppServices();
   const router = await buildRouter(appServices);
 

@@ -5,13 +5,14 @@ export function getSongsController(services: AppServices) {
   return async (req: Request, res: Response<GetSongsResponse>) => {
     const songs = await services.storages.songs.getAll();
 
-    res.status(200).send({
+    const responseData = {
       songs: songs.map(song => ({
         songId: song.songId,
         name: song.name,
         author: song.author,
       })),
-    });
+    };
+    res.status(200).send(responseData);
   };
 }
 
