@@ -32,6 +32,7 @@ describe("getSongsController", () => {
 
     //then
     const responseBody = response.body as GetSongsResponse;
+    // todo check status code
     expect(responseBody.songs.length).to.be.eq(2);
   });
 });
